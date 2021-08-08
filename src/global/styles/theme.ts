@@ -4,7 +4,7 @@ export const theme = {
   },
 
   fonts: {
-    title: '',
-    text: '',
+    title: 'Poppins_700Bold',
+    text: 'Merriweather_400Regular',
   }
 }

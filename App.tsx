@@ -4,31 +4,31 @@ import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 
 import { useFonts } from 'expo-font';
-import {  } from '@expo-google-fonts/poppins';
-import {  } from '@expo-google-fonts/merriweather';
+import { Poppins_700Bold } from '@expo-google-fonts/poppins';
+import { Merriweather_400Regular } from '@expo-google-fonts/merriweather';
 
-import { Background } from './src/components/Background';
-import { Home } from './src/screens/Home';
+import { Routes } from './src/routes';
 
 LogBox.ignoreLogs(['You are not currently signed in to Expo on your development machine.']);
 
 export default function App() {
 
   const [ fontsLoaded ] = useFonts({
-
+    Poppins_700Bold,
+    Merriweather_400Regular
   });
 
   if(!fontsLoaded)
     return <AppLoading />
 
   return (
-    <Background>
+    <>
       <StatusBar 
         style="light"
         backgroundColor="transparent"
         translucent
       />
-      <Home />
-    </Background>
+      <Routes />
+    </>
   );
 }
