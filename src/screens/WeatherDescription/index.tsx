@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, View, Image, ImageBackground, FlatList, ActivityIndicator, Alert } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { 
+  SafeAreaView, 
+  Text, 
+  View, 
+  Image,
+  Platform
+} from 'react-native';
+
 import * as Location from 'expo-location';
 
 import { Header } from '../../components/Header';
@@ -18,24 +24,25 @@ import weatherIcons from '../../utils/weatherIcons';
 import { convertKelvinToCelsius } from '../../utils/convertKelvinToCelsius';
 import { capitalizeEntireString } from '../../utils/capitalizeEntireString';
 import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export function WeatherDescription(){
 
-  const route = useRoute();
-  //const { cityWeather } = route.params as Params;
+  const navigation = useNavigation<any>();
 
-  const navigation = useNavigation();
-
-  // function handleGoBack() {
-  //   navigation.navigate('Home');
-  // }
+  function handleGoBack() {
+    navigation.navigate('Home');
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
+        <Header />
       </View>
 
+      
       <View style={styles.content}>
+        <Text>aaaaaaaaaaaaaaaaaaaaa</Text>
       </View>
     </SafeAreaView>
   );

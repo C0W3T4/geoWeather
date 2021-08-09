@@ -2,15 +2,15 @@ import React from 'react';
 import { View } from 'react-native';
 import LottieView from 'lottie-react-native';
 
-import loadAnimationFile from '../../assets/995-thermometer.json';
+import waitingClock from '../../assets/waitingClock.json'
 
 import { styles } from './styles';
 
-export function LoadAnimation() {
+export const LoadAnimation = () => {
   return (
     <View style={styles.container}>
       <LottieView 
-        source={loadAnimationFile}
+        source={waitingClock}
         autoPlay
         loop
         style={styles.animation}

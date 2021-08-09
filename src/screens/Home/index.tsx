@@ -1,39 +1,85 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, View, Image, Alert } from 'react-native';
+import { 
+  SafeAreaView,
+  View, 
+  Alert,
+  Platform,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import * as Location from 'expo-location';
 
-import api from '../../services/api';
+import * as Location from 'expo-location';
+import Constants from 'expo-constants';
 
 import { Header } from '../../components/Header';
 import { LoadAnimation } from '../../components/LoadAnimation';
+import { CityWeatherCard } from '../../components/CityWeatherCard';
 
-import WeatherProps from '../../types/WeatherProps';
+import api from '../../services/api';
 
-import Moon from '../../assets/moon.jpg';
 import weatherIcons from '../../utils/weatherIcons';
 
-import { convertKelvinToCelsius } from '../../utils/convertKelvinToCelsius';
-import { capitalizeEntireString } from '../../utils/capitalizeEntireString';
-import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
+import WeatherProps from '../../types/WeatherProps';
 
 import { styles } from './styles';
 
 import { WEATHER_API_KEY } from '@env';
 
 export function Home(){
-  const [weatherData, setWeatherData] = useState<undefined | WeatherProps>(undefined);
-  const [loading, setLoading] = useState(false);
 
-  const navigation = useNavigation();
+  const [currentLocation, setCurrentLocation] = useState<Location.LocationObject>();
 
-  async function LoadWeatherData() {
-    setLoading(true);
+  const [currentLocationWeatherData, setCurrentLocationWeatherData] = useState<WeatherProps>();
+  const [weatherData, setWeatherData] = useState<WeatherProps>();
 
+  const navigation = useNavigation<any>();
+
+  function handleSelectedCityWeather() {
+    navigation.navigate('WeatherDescription');
+  }
+
+  async function getCurrentLocation() {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      Alert.alert(
+        'Oops, this will not work in an Android emulator. Try it on your device!'
+      );
+      return;
+    }
+
+    const { status } = await Location.requestForegroundPermissionsAsync();
+
+    if (status !== 'granted') {
+      Alert.alert(
+        'Permission to access location was denied'
+      );
+      return;
+    }
+
+    const coords = await Location.getCurrentPositionAsync({});
+    setCurrentLocation(coords);
+  }
+
+  async function LoadCurrentLocationWeatherData() {
+    try {
+      const { data } = await api.get(
+        `/weather?lat=${currentLocation?.coords?.latitude}&lon=${currentLocation?.coords?.longitude}&appid=${WEATHER_API_KEY}`
+      );
+
+      setCurrentLocationWeatherData(data);
+
+    } catch (error) {
+      Alert.alert(
+        'Connection error',
+        'Check your internet connection and try again!',
+      );
+    }
+  }
+
+  async function LoadWeatherDataByCity() {
     try {
       const { data } = await api.get(
         `/weather?q=Porto&appid=${WEATHER_API_KEY}`
       );
+
       setWeatherData(data);
 
     } catch (error) {
@@ -42,76 +88,102 @@ export function Home(){
         'Check your internet connection and try again!',
       );
     }
-    setLoading(false);
   }
 
-  // function handleSelectedCityWeather(cityWeather: WeatherProps) {
-  //   navigation.navigate('WeatherDescription', {cityWeather});
-  // }
-
   useEffect(() => {
-    LoadWeatherData();
+    getCurrentLocation();
   }, []);
 
-  if(loading)
-    return <LoadAnimation />
+  useEffect(() => {
+    if (currentLocation?.coords?.latitude && currentLocation?.coords?.longitude) {
+      LoadCurrentLocationWeatherData();
+      LoadWeatherDataByCity();
+    }
+  }, [currentLocation]);
+
 
   return (
     <SafeAreaView style={styles.container}>
+
       <View style={styles.header}>
-        
+        <Header />
       </View>
 
-      <View style={styles.content}>
-        <Text>{weatherData?.coord.lon}</Text>
-        <Text>{weatherData?.coord.lat}</Text>
+      {!currentLocationWeatherData && !weatherData ? (
 
-        <Text>{weatherData?.weather[0].id}</Text>
-        <Text>{weatherData?.weather[0].main}</Text>
-        <Text>{capitalizeFirstLetter(weatherData?.weather[0].description)}</Text>
-        <View style={styles.iconContainer}>
-          {weatherData?.weather[0].icon && (
-            <Image style={styles.icon}
-              source={weatherIcons(weatherData?.weather[0].icon)}
-              resizeMode="contain"
-            />
-          )}
+        <LoadAnimation />
+
+      ) : (
+        <View style={styles.cityWeatherContainer}>
+
+          <CityWeatherCard 
+            name={currentLocationWeatherData?.name}
+            country={currentLocationWeatherData?.sys?.country}
+            onPress={handleSelectedCityWeather}
+          />
+
+          <CityWeatherCard 
+            name={weatherData?.name}
+            country={weatherData?.sys?.country}
+            onPress={() => handleSelectedCityWeather}
+          />
+
+          <CityWeatherCard 
+            name={weatherData?.name}
+            country={weatherData?.sys?.country}
+            onPress={() => handleSelectedCityWeather}
+          />
+
+          <CityWeatherCard 
+            name={weatherData?.name}
+            country={weatherData?.sys?.country}
+            onPress={() => handleSelectedCityWeather}
+          />
+
+          <CityWeatherCard 
+            name={weatherData?.name}
+            country={weatherData?.sys?.country}
+            onPress={() => handleSelectedCityWeather}
+          />
+
+          <CityWeatherCard 
+            name={weatherData?.name}
+            country={weatherData?.sys?.country}
+            onPress={() => handleSelectedCityWeather}
+          />
+
+          <CityWeatherCard 
+            name={weatherData?.name}
+            country={weatherData?.sys?.country}
+            onPress={() => handleSelectedCityWeather}
+          />
+
+          <CityWeatherCard 
+            name={weatherData?.name}
+            country={weatherData?.sys?.country}
+            onPress={() => handleSelectedCityWeather}
+          />
+
+          <CityWeatherCard 
+            name={weatherData?.name}
+            country={weatherData?.sys?.country}
+            onPress={() => handleSelectedCityWeather}
+          />
+
+          <CityWeatherCard 
+            name={weatherData?.name}
+            country={weatherData?.sys?.country}
+            onPress={() => handleSelectedCityWeather}
+          />
+
+          <CityWeatherCard 
+            name={weatherData?.name}
+            country={weatherData?.sys?.country}
+            onPress={() => handleSelectedCityWeather}
+          />
+
         </View>
-
-        <Text>{weatherData?.base}</Text>
-
-        <Text>{convertKelvinToCelsius(weatherData?.main.temp)}</Text>
-        <Text>{weatherData?.main.feels_like}</Text>
-        <Text>{weatherData?.main.temp_min}</Text>
-        <Text>{weatherData?.main.temp_max}</Text>
-        <Text>{weatherData?.main.pressure}</Text>
-        <Text>{weatherData?.main.humidity}</Text>
-
-        <Text>{weatherData?.visibility}</Text>
-        
-        <Text>{weatherData?.wind.speed}</Text>
-        <Text>{weatherData?.wind.deg}</Text>
-        
-        <Text>{weatherData?.clouds.all}</Text>
-        
-        <Text>{weatherData?.dt}</Text>
-
-        <Text>{weatherData?.sys.type}</Text>
-        <Text>{weatherData?.sys.id}</Text>
-        <Text>{weatherData?.sys.message}</Text>
-        <Text>{weatherData?.sys.country}</Text>
-        <Text>{weatherData?.sys.sunrise}</Text>
-        <Text>{weatherData?.sys.sunset}</Text>
-
-        <Text>{weatherData?.timezone}</Text>
-
-        <Text>{weatherData?.id}</Text>
-
-        <Text>{weatherData?.name}</Text>
-
-        <Text>{weatherData?.cod}</Text>
-
-      </View>
+      )}
     </SafeAreaView>
   );
 }

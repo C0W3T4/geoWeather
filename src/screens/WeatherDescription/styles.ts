@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
   },
 
   header: {
-    paddingHorizontal: 30,
   },
 
   content: {

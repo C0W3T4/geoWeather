@@ -7,8 +7,8 @@ export const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 50,
-    marginTop: getStatusBarHeight(),
+    paddingTop: 40,
+    backgroundColor: '#D3D3D3',
   },
   greeting: {
     fontSize: 28,

@@ -3,26 +3,17 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#DCDCDC',
   },
 
   header: {
-    paddingHorizontal: 30,
   },
 
-  content: {
+  cityWeatherContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 10,
   },
 
-  iconContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  icon: {
-    width: 100,
-    height: 100,
-  },
+  text: {},
 });
