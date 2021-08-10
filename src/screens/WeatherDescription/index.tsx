@@ -26,9 +26,15 @@ import { capitalizeEntireString } from '../../utils/capitalizeEntireString';
 import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-export function WeatherDescription(){
+type Params = {
+  weather: WeatherProps;
+}
 
+export function WeatherDescription(){
+  const route = useRoute();
   const navigation = useNavigation<any>();
+
+  const { weather } = route.params as Params;
 
   function handleGoBack() {
     navigation.navigate('Home');
@@ -42,7 +48,7 @@ export function WeatherDescription(){
 
       
       <View style={styles.content}>
-        <Text>aaaaaaaaaaaaaaaaaaaaa</Text>
+        <Text>{weather.name}</Text>
       </View>
     </SafeAreaView>
   );

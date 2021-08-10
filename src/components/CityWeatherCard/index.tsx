@@ -5,18 +5,20 @@ import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import { styles } from './styles';
 
 interface WeatherProps extends RectButtonProps {
-  name?: string;
-  country?: string;
+  data: {
+    name?: string;
+    country?: string;
+  }
 }
 
-export const CityWeatherCard = ({ name, country, ...rest }: WeatherProps) => {
+export const CityWeatherCard = ({ data, ...rest }: WeatherProps) => {
   return (
     <RectButton 
       style={styles.container}
       {...rest}
     >
       <Text style={styles.text}>
-        {name}{`  `}{country}
+        {data.name}{`  `}{data.country}
       </Text>
     </RectButton>
   );

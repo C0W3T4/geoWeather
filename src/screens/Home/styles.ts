@@ -12,8 +12,7 @@ export const styles = StyleSheet.create({
   cityWeatherContainer: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 32,
   },
-
   text: {},
 });
