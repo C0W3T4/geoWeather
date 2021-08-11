@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   SafeAreaView, 
   Text, 
@@ -18,7 +18,7 @@ import weatherIcons from '../../utils/weatherIcons';
 
 import { styles } from './styles';
 import { DetailsCard } from '../../components/DetailsCard';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { capitalize } from '../../utils/capitalize';
 
 type Params = {
@@ -31,7 +31,7 @@ export function WeatherDescription(){
 
   const { weatherInfo } = route.params as Params;
 
-  const [details, setDetails] = useState<[]>([]);
+  const objectArray = Object.create(weatherInfo);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,27 +60,65 @@ export function WeatherDescription(){
         </Text>
 
         <View style={styles.detailsContainer}>
-          {/* <FlatList
-            data={}
-            keyExtractor={(item) => String(item.id)}
-            renderItem={({ item }) => (
-              <DetailsCard 
-                data={item}
-              />
-            )}
-            numColumns={3}
-          /> */}
 
-          <View style={styles.detailsContent}>
-            <FontAwesome name="thermometer-half" size={24} color="white" />
-            
-            <Text style={styles.detailsInfo}>
-              {weatherInfo.clouds?.all}%
-            </Text>
+          <View style={styles.detailsCardContent} >
+            <View style={styles.firstListDetails}>
+
+              <View style={styles.detailsContent}>
+                <FontAwesome name="thermometer-empty" size={24} color="white" />
+                
+                <Text style={styles.detailsInfo}>
+                  {convertKelvinToCelsius(weatherInfo.main?.temp_min)}ºC
+                </Text>
+              </View>
+
+              <View style={styles.detailsContent}>
+                <FontAwesome name="thermometer-half" size={24} color="white" />
+                
+                <Text style={styles.detailsInfo}>
+                  {convertKelvinToCelsius(weatherInfo.main?.feels_like)}ºC
+                </Text>
+              </View>
+
+              <View style={styles.detailsContent}>
+                <FontAwesome name="thermometer-full" size={24} color="white" />
+                
+                <Text style={styles.detailsInfo}>
+                  {convertKelvinToCelsius(weatherInfo.main?.temp_max)}ºC
+                </Text>
+              </View>
+
+            </View>
+
+            <View style={styles.secondListDetails}>
+
+              <View style={styles.detailsContent}>
+                <FontAwesome5 name="water" size={24} color="white" />
+                
+                <Text style={styles.detailsInfo}>
+                  {weatherInfo.main?.pressure}{`\n`}hPa
+                </Text>
+              </View>
+
+              <View style={styles.detailsContent}>
+                <Ionicons name="water-sharp" size={24} color="white" />
+                
+                <Text style={styles.detailsInfo}>
+                  {weatherInfo.main?.humidity}%
+                </Text>
+              </View>
+
+              <View style={styles.detailsContent}>
+                <MaterialCommunityIcons name="weather-fog" size={24} color="white" />
+                
+                <Text style={styles.detailsInfo}>
+                  {weatherInfo.clouds?.all}%
+                </Text>
+              </View>
+
+            </View>
           </View>
-
         </View>
-
       </View>
     </SafeAreaView>
   );

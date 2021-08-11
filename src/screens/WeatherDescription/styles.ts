@@ -43,8 +43,28 @@ export const styles = StyleSheet.create({
     padding: 50,
   },
 
-  detailsContent: {
+  detailsCardContent: {
     flex: 1,
+  },
+
+  firstListDetails: {
+    width: '100%',
+    height: '50%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 15,
+  },
+
+  detailsContent: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  secondListDetails: {
+    width: '100%',
+    height: '50%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   detailsInfo: {
