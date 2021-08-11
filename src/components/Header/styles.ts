@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     paddingTop: 20,
-    maxWidth: '60%',
+    maxWidth: '65%',
   },
 
   title: {
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   },
 
   headerRightContent: {
-    maxWidth: '40%',
+    maxWidth: '35%',
   },
 
   userName: {
