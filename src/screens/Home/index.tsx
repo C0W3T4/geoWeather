@@ -18,9 +18,8 @@ import { CityWeatherCard } from '../../components/CityWeatherCard';
 
 import WeatherProps from '../../types/WeatherProps';
 
-import weatherIcons from '../../utils/weatherIcons';
-
 import { styles } from './styles';
+import { theme } from '../../global/styles/theme';
 
 import { WEATHER_API_KEY } from '@env';
 
@@ -32,11 +31,12 @@ export function Home(){
   
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const navigation = useNavigation<any>();
 
-  function handleSelectedCityWeather(weather: WeatherProps) {
-    navigation.navigate('WeatherDescription', { weather });
+  function handleSelectedCityWeather(weatherInfo: WeatherProps) {
+    navigation.navigate('WeatherDescription', { weatherInfo });
   }
 
   async function getCurrentLocation() {
@@ -73,7 +73,7 @@ export function Home(){
     const pragueData = `https://api.openweathermap.org/data/2.5/weather?q=Prague&_page=${page}&_limit=6&appid=${WEATHER_API_KEY}`;
     const viennaData = `https://api.openweathermap.org/data/2.5/weather?q=Vienna&_page=${page}&_limit=6&appid=${WEATHER_API_KEY}`;
 
-    Promise.all([
+    await Promise.all([
       fetch(currentLocationData),
       fetch(lisbonData),
       fetch(madridData),
@@ -93,16 +93,29 @@ export function Home(){
       }));
     }).then(function (data) {
 
-      if(page > 1)
-        setLocationWeatherData(oldValue => [...oldValue, ...data]);
-      else
-        setLocationWeatherData(data);
+      if(!data)
+        return setLoading(true);
 
+      if(page > 1){
+        setLocationWeatherData(oldValue => [...oldValue, ...data]);}
+      else{
+        setLocationWeatherData(data);}
+
+      setLoading(false);
       setLoadingMore(false);
       
     }).catch(function (error) {
       Alert.alert(error);
     });
+  }
+
+  function handleFetchMore(distance: number) {
+    if (distance < 1)
+      return;
+
+    setLoadingMore(true);
+    setPage(oldValue => oldValue + 1);
+    //fetchWeatherData();
   }
 
   useEffect(() => {
@@ -115,49 +128,44 @@ export function Home(){
     }
   }, [currentLocation]);
 
-  function handleFetchMore(distance: number) {
-    if (distance < 1)
-      return;
-
-    setLoadingMore(true);
-    setPage(oldValue => oldValue + 1);
-    fetchWeatherData();
-  }
+  if(loading)
+    return <LoadAnimation />
 
   return (
     <SafeAreaView style={styles.container}>
 
       <View style={styles.header}>
-        <Header />
+        <Header 
+          title="Hello" 
+          subtitle="Check how the weather is in your city" 
+          userName="David"
+        />
       </View>
 
-      {!locationWeatherData ? (
-        <LoadAnimation />
-      ) : (
-        <View style={styles.cityWeatherContainer}>
-          <FlatList
-            data={locationWeatherData}
-            keyExtractor={item => String(item.id)}
-            renderItem={({ item }) => (
-              <CityWeatherCard 
-                data={item}
-                onPress={() => handleSelectedCityWeather(item)}
-              />
-            )}
-            numColumns={2}
-            showsVerticalScrollIndicator={false}
-            onEndReachedThreshold={0.1}
-            onEndReached={({ distanceFromEnd }) => 
-              handleFetchMore(distanceFromEnd)
-            }
-            ListFooterComponent={
-              loadingMore
-              ? <ActivityIndicator color="#006400" />
-              : <></>
-            }
-          />
-        </View>
-      )}
+      <View style={styles.cityWeatherContent}>
+        <FlatList
+          data={locationWeatherData}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => (
+            <CityWeatherCard 
+              data={item}
+              onPress={() => handleSelectedCityWeather(item)}
+            />
+          )}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          onEndReachedThreshold={0.1}
+          onEndReached={({ distanceFromEnd }) => 
+            handleFetchMore(distanceFromEnd)
+          }
+          ListFooterComponent={
+            loadingMore
+            ? <ActivityIndicator color={theme.colors.bottom_loading} />
+            : <></>
+          }
+        />
+      </View>
+
     </SafeAreaView>
   );
 }

@@ -1,6 +1,16 @@
 export const theme = {
   colors: {
-    background: 'rgba(0,0,0,0.8)'
+
+    background: '#7700BF',
+    header_background: '#9400D3',
+    cardBackground: '#BA65FD',
+    
+    text_color: '#F5F5F5',
+
+    bottom_loading: '#006400',
+
+    shape: '#DCDCDC',
+
   },
 
   fonts: {

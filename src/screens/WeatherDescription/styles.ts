@@ -4,25 +4,51 @@ import { theme } from '../../global/styles/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFC0',
+    backgroundColor: theme.colors.background,
   },
 
-  header: {
-  },
-
-  content: {
+  weatherInfoContent: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 
-  iconContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  weatherDescription: {
+    color: theme.colors.text_color,
+    fontFamily: theme.fonts.text,
+    fontSize: 24,
+    top: 40,
   },
 
-  icon: {
-    width: 100,
-    height: 100,
+  weatherIcon: {
+    width: 250,
+    height: 250,
+  },
+
+  temp: {
+    color: theme.colors.text_color,
+    fontFamily: theme.fonts.text,
+    fontSize: 24,
+    bottom: 30,
+  },
+
+  detailsContainer: {
+    width: '80%',
+    height: '40%',
+    backgroundColor: theme.colors.cardBackground,
+    borderColor: theme.colors.shape,
+    borderWidth: 2,
+    borderRadius: 20,
+    marginBottom: 50,
+    padding: 50,
+  },
+
+  detailsContent: {
+    flex: 1,
+  },
+
+  detailsInfo: {
+    color: theme.colors.text_color,
+    fontFamily: theme.fonts.text,
   },
 });

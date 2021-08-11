@@ -5,14 +5,49 @@ import { theme } from '../../global/styles/theme';
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 40,
-    backgroundColor: '#D3D3D3',
+    paddingTop: 20,
+    marginTop: getStatusBarHeight(),
+    // backgroundColor: theme.colors.header_background,
   },
-  greeting: {
+
+  headerLeftContent: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    paddingTop: 20,
+    maxWidth: '50%',
+  },
+
+  title: {
     fontSize: 28,
-    color: '#F5F5F5',
+    color: theme.colors.text_color,
     fontFamily: theme.fonts.title,
+    paddingLeft: 40,
   },
+
+  subtitle: {
+    fontSize: 12,
+    color: theme.colors.text_color,
+    fontFamily: theme.fonts.title,
+    bottom: 5,
+    paddingLeft: 40,
+  },
+
+  headerRightContent: {
+    maxWidth: '50%',
+  },
+
+  userName: {
+    fontSize: 28,
+    fontFamily: theme.fonts.title,
+    color: theme.colors.text_color,
+    paddingRight: 40,
+    alignItems: 'center',
+  },
+
+  homeIcon: {
+    paddingRight: 50,
+  }
 });

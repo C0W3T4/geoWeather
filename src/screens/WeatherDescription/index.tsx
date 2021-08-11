@@ -1,54 +1,86 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { 
   SafeAreaView, 
   Text, 
   View, 
   Image,
-  Platform
+  FlatList,
 } from 'react-native';
-
-import * as Location from 'expo-location';
+import { useRoute } from '@react-navigation/native';
 
 import { Header } from '../../components/Header';
-import { LoadAnimation } from '../../components/LoadAnimation';
-
-import api from '../../services/api';
-import { WEATHER_API_KEY } from '@env';
 
 import WeatherProps from '../../types/WeatherProps';
 
-import Moon from '../../assets/moon.jpg';
+import { convertKelvinToCelsius } from '../../utils/convertKelvinToCelsius';
+
+import weatherIcons from '../../utils/weatherIcons';
 
 import { styles } from './styles';
-import weatherIcons from '../../utils/weatherIcons';
-import { convertKelvinToCelsius } from '../../utils/convertKelvinToCelsius';
-import { capitalizeEntireString } from '../../utils/capitalizeEntireString';
-import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { DetailsCard } from '../../components/DetailsCard';
+import { FontAwesome } from '@expo/vector-icons';
+import { capitalize } from '../../utils/capitalize';
 
 type Params = {
-  weather: WeatherProps;
+  weatherInfo: WeatherProps;
 }
 
 export function WeatherDescription(){
+  
   const route = useRoute();
-  const navigation = useNavigation<any>();
 
-  const { weather } = route.params as Params;
+  const { weatherInfo } = route.params as Params;
 
-  function handleGoBack() {
-    navigation.navigate('Home');
-  }
+  const [details, setDetails] = useState<[]>([]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Header />
+      <View>
+        <Header 
+          title={weatherInfo?.name} 
+          setHome={true} 
+        />
       </View>
 
-      
-      <View style={styles.content}>
-        <Text>{weather.name}</Text>
+      <View style={styles.weatherInfoContent}>
+
+        <Text style={styles.weatherDescription}>
+          {capitalize(weatherInfo.weather?.[0].description)}
+        </Text>
+
+        {weatherInfo.weather?.[0].icon && (
+          <Image
+            style={styles.weatherIcon}
+            source={weatherIcons(weatherInfo.weather?.[0].icon)}
+          />
+        )}
+
+        <Text style={styles.temp}>
+          {convertKelvinToCelsius(weatherInfo.main?.temp)}ºC
+        </Text>
+
+        <View style={styles.detailsContainer}>
+          {/* <FlatList
+            data={}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={({ item }) => (
+              <DetailsCard 
+                data={item}
+              />
+            )}
+            numColumns={3}
+          /> */}
+
+          <View style={styles.detailsContent}>
+            <FontAwesome name="thermometer-half" size={24} color="white" />
+            
+            <Text style={styles.detailsInfo}>
+              {weatherInfo.clouds?.all}%
+            </Text>
+          </View>
+
+        </View>
+
       </View>
     </SafeAreaView>
   );
