@@ -32,7 +32,7 @@ export function Home(){
   
   const [locationWeatherData, setLocationWeatherData] = useState<WeatherProps[]>([]);
   
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<Boolean>(true);
 
   const navigation = useNavigation<any>();
 
