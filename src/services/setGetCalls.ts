@@ -1,6 +1,6 @@
 import { WEATHER_API_KEY } from "@env";
 
-export const allGetMethods = {
+export const allGetCalls = {
   lisbonData: `https://api.openweathermap.org/data/2.5/weather?q=Lisbon&units=metric&appid=${WEATHER_API_KEY}`,
   madridData: `https://api.openweathermap.org/data/2.5/weather?q=Madrid&units=metric&appid=${WEATHER_API_KEY}`,
   parisData: `https://api.openweathermap.org/data/2.5/weather?q=Paris&units=metric&appid=${WEATHER_API_KEY}`,

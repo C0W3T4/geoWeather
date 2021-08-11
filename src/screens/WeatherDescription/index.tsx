@@ -36,6 +36,7 @@ export function WeatherDescription(){
 
   return (
     <SafeAreaView style={styles.container}>
+      
       <View>
         <Header 
           title={weatherInfo?.name} 

@@ -22,7 +22,7 @@ import { WEATHER_API_KEY } from '@env';
 
 import api from '../../services/api';
 import { getCurrentLocationModule } from '../../services/getCurrentLocation';
-import { allGetMethods } from '../../services/setGetMethods';
+import { allGetCalls } from '../../services/setGetCalls';
 
 import { styles } from './styles';
 
@@ -49,21 +49,22 @@ export function Home(){
     
     await Promise.all([
       api.get(currentLocationData),
-      api.get(allGetMethods.lisbonData),
-      api.get(allGetMethods.madridData),
-      api.get(allGetMethods.parisData),
-      api.get(allGetMethods.berlinData),
-      api.get(allGetMethods.copenhagenData),
-      api.get(allGetMethods.romeData),
-      api.get(allGetMethods.londonData),
-      api.get(allGetMethods.dublinData),
-      api.get(allGetMethods.pragueData),
-      api.get(allGetMethods.viennaData),
+      api.get(allGetCalls.lisbonData),
+      api.get(allGetCalls.madridData),
+      api.get(allGetCalls.parisData),
+      api.get(allGetCalls.berlinData),
+      api.get(allGetCalls.copenhagenData),
+      api.get(allGetCalls.romeData),
+      api.get(allGetCalls.londonData),
+      api.get(allGetCalls.dublinData),
+      api.get(allGetCalls.pragueData),
+      api.get(allGetCalls.viennaData),
     ]).then(function (responses) {
 
       // Get a JSON object from each of the responses
       return Promise.all(responses.map(function (response) {
         return response.data;
+
       }));
     }).then(function (data) {
 
@@ -94,16 +95,18 @@ export function Home(){
 
   return (
     <SafeAreaView style={styles.container}>
-
       <View style={styles.header}>
+
         <Header 
           title="Hello" 
           subtitle="See how the weather is." 
           userName="WIT"
         />
+
       </View>
 
       <View style={styles.cityWeatherContent}>
+
         <FlatList
           data={locationWeatherData}
           keyExtractor={(item) => String(item.id)}
@@ -117,8 +120,8 @@ export function Home(){
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={0.1}
         />
-      </View>
 
+      </View>
     </SafeAreaView>
   );
 }

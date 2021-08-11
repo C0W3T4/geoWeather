@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 20,
     marginTop: getStatusBarHeight(),
-    // backgroundColor: theme.colors.header_background,
   },
 
   headerLeftContent: {

@@ -1,16 +1,16 @@
-import Icon01d from '../assets/weather/01d/01d.png';
-import Icon01n from '../assets/weather/01n/01n.png';
-import Icon09d from '../assets/weather/09d/09d.png';
-import Icon09n from '../assets/weather/09n/09n.png';
-import Icon10d from '../assets/weather/10d/10d.png';
-import Icon10n from '../assets/weather/10n/10n.png';
-import Icon11d from '../assets/weather/11d/11d.png';
-import Icon11n from '../assets/weather/11n/11n.png';
-import Icon13d from '../assets/weather/13d/13d.png';
-import Icon13n from '../assets/weather/13n/13n.png';
-import Icon0203d from '../assets/weather/0203d/0203d.png';
-import Icon0203n from '../assets/weather/0203n/0203n.png';
-import Icon0450 from '../assets/weather/0450/0450.png';
+import Icon01d from '../assets/images/weather/01d/01d.png';
+import Icon01n from '../assets/images/weather/01n/01n.png';
+import Icon09d from '../assets/images/weather/09d/09d.png';
+import Icon09n from '../assets/images/weather/09n/09n.png';
+import Icon10d from '../assets/images/weather/10d/10d.png';
+import Icon10n from '../assets/images/weather/10n/10n.png';
+import Icon11d from '../assets/images/weather/11d/11d.png';
+import Icon11n from '../assets/images/weather/11n/11n.png';
+import Icon13d from '../assets/images/weather/13d/13d.png';
+import Icon13n from '../assets/images/weather/13n/13n.png';
+import Icon0203d from '../assets/images/weather/0203d/0203d.png';
+import Icon0203n from '../assets/images/weather/0203n/0203n.png';
+import Icon0450 from '../assets/images/weather/0450/0450.png';
 
 export default function weatherIcons(iconId: string) {
   switch (iconId) {

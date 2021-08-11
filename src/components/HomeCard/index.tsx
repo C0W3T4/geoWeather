@@ -4,10 +4,7 @@ import {
   View, 
   Image 
 } from 'react-native';
-import { 
-  RectButton, 
-  RectButtonProps 
-} from 'react-native-gesture-handler';
+import { RectButton } from 'react-native-gesture-handler';
 
 import HomeCardProps from '../../types/HomeCardProps';
 
@@ -17,11 +14,7 @@ import weatherIcons from '../../utils/weatherIcons';
 
 import { styles } from './styles';
 
-interface HomeCardPropsExtended extends RectButtonProps {
-  data: HomeCardProps;
-}
-
-export const HomeCard = ({ data, ...rest }: HomeCardPropsExtended) => {
+export const HomeCard = ({ data, ...rest }: HomeCardProps) => {
   return (
     <RectButton 
       style={styles.container}

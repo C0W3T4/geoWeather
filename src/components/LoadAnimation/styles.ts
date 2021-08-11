@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
 
   loadingText: {
     fontSize: 28,
-    color: theme.colors.black,
+    color: theme.colors.loadingText_color,
     fontFamily: theme.fonts.title,
   },
 
