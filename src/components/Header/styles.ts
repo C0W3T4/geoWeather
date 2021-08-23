@@ -45,6 +45,7 @@ export const styles = StyleSheet.create({
   },
 
   homeIcon: {
-    paddingRight: 50,
+    paddingRight: 40,
+    alignItems: 'center',
   }
 });
