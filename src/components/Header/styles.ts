@@ -38,10 +38,8 @@ export const styles = StyleSheet.create({
     maxWidth: '35%',
   },
 
-  userName: {
-    fontSize: 28,
-    fontFamily: theme.fonts.title,
-    color: theme.colors.text_color,
+  emoji: {
+    fontSize: 30,
     paddingRight: 40,
     alignItems: 'center',
   },

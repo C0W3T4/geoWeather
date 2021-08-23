@@ -6,13 +6,14 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 import { FontAwesome5 } from '@expo/vector-icons';
+import Emoji from 'react-native-emoji';
 
 import HeaderProps from '../../types/HeaderProps';
 
 import { theme } from '../../global/styles/theme';
 import { styles } from './styles';
 
-export const Header = ({title, userName, setHome, subtitle}: HeaderProps) => {
+export const Header = ({title, emoji, setHome, subtitle}: HeaderProps) => {
 
   const navigation = useNavigation<any>();
 
@@ -31,11 +32,13 @@ export const Header = ({title, userName, setHome, subtitle}: HeaderProps) => {
 
       <View style={styles.headerRightContent}>
 
-        { (userName) &&
-          <Text style={styles.userName}>{userName}</Text>
+        { (emoji) &&
+          <Text style={styles.emoji}>
+          😄
+          </Text>
         }
 
-        { (setHome === true) && 
+        { (setHome) && 
           <FontAwesome5 
             name="home" 
             size={24} 

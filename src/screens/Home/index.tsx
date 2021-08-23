@@ -100,7 +100,7 @@ export function Home(){
         <Header 
           title="Hello" 
           subtitle="See how the weather is." 
-          userName="WIT"
+          emoji={true}
         />
 
       </View>
